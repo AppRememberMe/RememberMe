@@ -19,7 +19,6 @@ const style = StyleSheet.create({
         borderRadius: 75,
         alignItems: 'center',
         justifyContent: 'center',
-
     },
     view:{
         alignItems: 'center',

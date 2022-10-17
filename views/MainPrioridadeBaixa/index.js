@@ -7,37 +7,25 @@ import IconeCalendario from "../../components/iconeCalendario";
 import IconeOpcoes from "../../components/iconeOpcoes";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import style from  './style';
-import moment from 'moment';
-import 'moment/locale/pt-br';
 
-moment().format();
-moment.locale('pt-br');
 
-var data1 = moment().format('MMM') + ', ' + moment().format('YYYY');   
-var data2 = moment().format('dddd') + ', ' + moment().format('DD');  
- 
-export default function Main({navigation}){
+
+export default function MainPrioridadeBaixa({navigation}){
     
   const DATA = [
     {tarefa: 'Dormir'},
-    {tarefa: 'Tarefa 2'},
-    {tarefa: 'Tarefa 3'},
-    {tarefa: 'Tarefa 4'},
-    {tarefa: 'Tarefa 5'},
-    {tarefa: 'Tarefa 6'},
-    {tarefa: 'Tarefa 7'},
-    {tarefa: 'Tarefa 8'},
-    {tarefa: 'Tarefa 9'},
-    {tarefa: 'Tarefa 10'},
+    {tarefa: 'Comer'},
+    {tarefa: 'Banhar'},
+
 ]
 return(
         <SafeAreaView style={style.container}>
-            <LinearGradient colors={['#65ebbe','#4458be']} style={style.background}/>
+            <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>
 
             <View>      
                 <View style={style.view}>
-                    <Text style={style.data1}>{data1[0].toUpperCase() + data1.substr(1)}</Text>
-                    <Text style={style.data2}>{data2[0].toUpperCase() + data2.substr(1)}</Text>
+
+                    <Text style={style.titulo}>Prioridade Baixa</Text>
 
                     <View style={style.view1}> 
                         <TouchableOpacity onPress={() => navigation.navigate('Calendario')}>
@@ -55,8 +43,8 @@ return(
                         <BotaoAdicionar></BotaoAdicionar>
                     </TouchableOpacity>
                     
-                    <FlatList
-                        style={style.flatList}
+                    <View style={style.flatList}>
+                        <FlatList
                         data={DATA}
                         renderItem={({item}) => (
                             <View style={style.viewList}>
@@ -64,11 +52,14 @@ return(
                             </View> 
                         )}
                     />
+                    </View>
                     
                 </View>
 
                 <View style={style.menu}>
-                    <View style={style.menuBranco}></View>
+                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrincipal')}>
+                        <View style={style.menuBranco}></View>
+                    </TouchableOpacity>
                     <View style={style.menuVerde}></View>
                     <View style={style.menuLaranja}></View>
                     <View style={style.menuVermelho}></View>

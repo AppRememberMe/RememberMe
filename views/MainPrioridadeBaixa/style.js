@@ -14,6 +14,9 @@ export default StyleSheet.create({
     view:{
         backgroundColor: '#fff',
         left: 45,
+        //borderWidth: StyleSheet.hairlineWidth,
+        //borderWidth: 3,
+        //borderColor: '#d3e992',
         borderBottomLeftRadius: 15,
         position: 'absolute',
         width: 400,
@@ -28,17 +31,13 @@ export default StyleSheet.create({
         width: 130,
         bottom: 30
     },
-    data1:{
-        color: '#4771b3',
-        left: 25, 
-        top: 20, 
-        fontSize: 16, 
-        width: 200 
-    },
-    data2:{
+    titulo:{
         color: '#4771b3', 
+        //textShadowColor:'#d3e992',
+        //textShadowOffset:{width: 5, height: 5},
+        //textShadowRadius:10,
         left: 25, 
-        top: 20, 
+        top: 30, 
         fontSize: 24, 
         fontWeight: 'bold', 
         width: 200
@@ -47,6 +46,10 @@ export default StyleSheet.create({
         alignSelf: 'flex-end',
         top: 550,
         right: 70,
+    },
+    flatList:{
+        bottom: 37,
+        height: 500
     },
     viewList:{
         width: 345,
@@ -58,12 +61,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#dcdcdc',
+        borderWidth: 2,
+        borderColor: '#d3e992',
         borderRadius: 5,
+
     },
     textList:{
         fontSize: 20,
-        color: '#4771b3'
+        color: '#4771b3',
     },
     menu:{
         width: 45, 
