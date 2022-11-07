@@ -13,9 +13,14 @@ import style from  './style';
 export default function MainPrioridadeBaixa({navigation}){
     
   const DATA = [
-    {tarefa: 'Dormir'},
-    {tarefa: 'Comer'},
-    {tarefa: 'Banhar'},
+    {tarefa: 'Tarefa 1'},
+    {tarefa: 'Tarefa 2'},
+    {tarefa: 'Tarefa 3'},
+    {tarefa: 'Tarefa 4'},
+    {tarefa: 'Tarefa 5'},
+    {tarefa: 'Tarefa 6'},
+    {tarefa: 'Tarefa 7'},
+    
 
 ]
 return(
@@ -39,7 +44,7 @@ return(
 
                     <Text> barra de progesso aqui</Text>
 
-                    <TouchableOpacity style={style.botaoAdicionar} onPress={() => navigation.navigate('Login')}>
+                    <TouchableOpacity style={style.botaoAdicionar}>
                         <BotaoAdicionar></BotaoAdicionar>
                     </TouchableOpacity>
                     
@@ -57,12 +62,21 @@ return(
                 </View>
 
                 <View style={style.menu}>
-                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrincipal')}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('MainPrincipal')}>
                         <View style={style.menuBranco}></View>
+                    </TouchableOpacity>  
+                                      
+                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrioridadeBaixa')}>
+                        <View style={style.menuVerde}></View>
                     </TouchableOpacity>
-                    <View style={style.menuVerde}></View>
-                    <View style={style.menuLaranja}></View>
-                    <View style={style.menuVermelho}></View>
+
+                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrioridadeMedia')}>
+                        <View style={style.menuLaranja} ></View>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeAlta')}>
+                        <View style={style.menuVermelho} ></View>
+                    </TouchableOpacity>
                 </View>
             </View>
             
