@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-native";
+import { RadioButton } from 'react-native-paper';
 import { SegmentedButtons  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -70,20 +71,28 @@ return(
                         <View style={style.modal}>
                             <View style={style.modal1View}>
                                 <TouchableOpacity onPress={() => setModal1(false)} style={{ width:25 }}>    
-                                    <IconeFechar color={"#4458be"} ></IconeFechar>
+                                    <IconeFechar color={"#fff"} ></IconeFechar>
                                 </TouchableOpacity>
 
                                 <Text style={style.textModal1}>Nova tarefa</Text>
                                 <TextInput  style={style.inputModal}
                                     placeholder='Nome' 
-                                    placeholderTextColor="#6876ba"/>
-                                <View>
+                                    placeholderTextColor="#fff"/>
+
+                                <RadioButton.Group  onValueChange={value => setChecked(value)} value={checked} >
+                                    <RadioButton.Item label="Prioridade alta" value="1" labelStyle={{color:"#ffafaf", fontWeight:'500', right:50}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                    <RadioButton.Item label="Prioridade média" value="2" labelStyle={{color:"#ffe3a0", fontWeight:'500', right:30}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                    <RadioButton.Item label="Prioridade baixa" value="3" labelStyle={{color:"#d3e992", fontWeight:'500', right:40}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                </RadioButton.Group>
                                     
-                                </View> 
+                                
+                                <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                    <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </Modal>
-                    
+
                     {/* Modal quando pressiona uma tarefa */}
 
                     <Modal animationType="fade" transparent={true} visible={modal2}>

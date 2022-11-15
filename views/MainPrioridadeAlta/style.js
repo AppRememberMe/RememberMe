@@ -110,10 +110,9 @@ export default StyleSheet.create({
         alignItems: "center",
         backgroundColor: '#4458be',
         width: 250,
-        borderRadius: 10,
         padding: 6,
         height: 50,
-        borderRadius: 5,
+        borderRadius: 10,
 
     },
     textBotaoAdicionarModal:{

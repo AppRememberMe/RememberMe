@@ -52,12 +52,11 @@ return(
                                 <Text style={style.textModal1}>Nova tarefa</Text>
 
                                 <TextInput  style={style.inputModal}/>
-                                <View>
-                                    <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
-                                        <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
-                                    </TouchableOpacity>
-                                    
-                                </View> 
+                    
+                                <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                    <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
+                                </TouchableOpacity>
+
                             </View>
                         </View>
                     </Modal>

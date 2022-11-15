@@ -81,9 +81,9 @@ export default StyleSheet.create({
         borderRadius: 30,
         padding: 20,
         width: 300,
-        height: 300,
+        height: 370,
         left: 20,
-        backgroundColor: '#fff',
+        backgroundColor: '#4458be',
         shadowColor: "#4458be",
         shadowOffset: {
         width: 10,
@@ -94,7 +94,7 @@ export default StyleSheet.create({
 
     },
     textModal1:{
-        color: '#4458be', 
+        color: '#fff', 
         fontSize: 20, 
         fontWeight: 'bold', 
         width: 300,
@@ -108,16 +108,11 @@ export default StyleSheet.create({
         padding: 6,
         borderRadius: 5,
         fontSize: 12,
-        letterSpacing: 2,
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center', 
-        borderColor: "#4458be",
+        borderColor: "#fff",
         borderWidth: 1,
-    },
-    opcoesModal:{
-        backgroundColor: '#fff',
-        top: 10,
     },
     modal2View:{
         borderRadius: 30,
@@ -144,6 +139,25 @@ export default StyleSheet.create({
         left: 115,
         bottom: 30
         
+    },
+    botaoAdicionarModal:{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: '#fff',
+        width: 250,
+        borderRadius: 10,
+        padding: 6,
+        height: 50,
+        top: 10
+
+    },
+    textBotaoAdicionarModal:{
+        color:'#4458be', 
+        fontSize:16, 
+        padding: 5,
+        textAlign: 'center', 
+        fontWeight: 'bold',
+        letterSpacing: 2
     },
     botaoRenomear: {
         backgroundColor: '#ffe3a0',

@@ -13,6 +13,8 @@ import style from  './style';
 export default function MainPrioridadeAlta({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
+    const [checked, setChecked] = useState('first');
+
     const DATA = [
         {tarefa: 'Tarefa 8'},
         {tarefa: 'Tarefa 9'},
@@ -47,12 +49,12 @@ return(
                                 <Text style={style.textModal1}>Nova tarefa</Text>
 
                                 <TextInput  style={style.inputModal}/>
-                                <View>
-                                    <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
-                                        <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
-                                    </TouchableOpacity>
+                                
+                                <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                    <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
+                                </TouchableOpacity>
                                     
-                                </View> 
+                                
                             </View>
                         </View>
                     </Modal>
@@ -88,6 +90,7 @@ return(
                         data={DATA}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
+                                 
                                 <Text style={style.textList} icon={'start'}>{item.tarefa} </Text>
                             </TouchableOpacity> 
                         )}
