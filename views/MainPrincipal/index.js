@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-native";
+import { SegmentedButtons  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import IconeOpcoes from "../../components/iconeOpcoes";
@@ -19,6 +20,8 @@ var data2 = moment().format('dddd') + ', ' + moment().format('DD');
 export default function MainPrincipal({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
+    const [checked, setChecked] = useState('');
+
 
   const DATA = [
     {tarefa: 'Tarefa 1'},
@@ -55,28 +58,34 @@ return(
                     <Text style={style.data2}>{data2[0].toUpperCase() + data2.substr(1)}</Text>
 
                     <View style={style.view1}> 
-                        <TouchableOpacity style={{left:40}}>
+                        <TouchableOpacity style={{left:40,top:10}}>
                             <IconeOpcoes></IconeOpcoes>
                         </TouchableOpacity>
                     </View>
 
                     <BarraProgresso color={'#4771b3'} calculo={3/5}></BarraProgresso>
-                    
+
+                    {/* Modal Adiconar nova tarefa */}
                     <Modal animationType="fade" transparent={true} visible={modal1}>
                         <View style={style.modal}>
                             <View style={style.modal1View}>
                                 <TouchableOpacity onPress={() => setModal1(false)} style={{ width:25 }}>    
-                                    <IconeFechar color={"white"} ></IconeFechar>
+                                    <IconeFechar color={"#4458be"} ></IconeFechar>
                                 </TouchableOpacity>
 
                                 <Text style={style.textModal1}>Nova tarefa</Text>
                                 <TextInput  style={style.inputModal}
                                     placeholder='Nome' 
-                                    placeholderTextColor="rgba(255, 255, 255, 0.68)"/> 
+                                    placeholderTextColor="#6876ba"/>
+                                <View>
+                                    
+                                </View> 
                             </View>
                         </View>
                     </Modal>
                     
+                    {/* Modal quando pressiona uma tarefa */}
+
                     <Modal animationType="fade" transparent={true} visible={modal2}>
                         <View style={style.modal}>
                             <View style={style.modal2View}>
@@ -106,7 +115,7 @@ return(
                         data={DATA}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
-                                <Text style={style.textList}>{item.tarefa}</Text>
+                                <Text style={style.textList} icon={'start'}>{item.tarefa} </Text>
                             </TouchableOpacity> 
                         )}
                     />

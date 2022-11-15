@@ -83,7 +83,7 @@ export default StyleSheet.create({
         width: 300,
         height: 300,
         left: 20,
-        backgroundColor: '#4458be',
+        backgroundColor: '#fff',
         shadowColor: "#4458be",
         shadowOffset: {
         width: 10,
@@ -94,7 +94,7 @@ export default StyleSheet.create({
 
     },
     textModal1:{
-        color: '#fff', 
+        color: '#4458be', 
         fontSize: 20, 
         fontWeight: 'bold', 
         width: 300,
@@ -112,9 +112,12 @@ export default StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center', 
-        borderColor: "#fff",
-        borderWidth: StyleSheet.hairlineWidth,
-
+        borderColor: "#4458be",
+        borderWidth: 1,
+    },
+    opcoesModal:{
+        backgroundColor: '#fff',
+        top: 10,
     },
     modal2View:{
         borderRadius: 30,
