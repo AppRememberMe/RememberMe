@@ -1,10 +1,10 @@
 import React,{useState} from "react";
-import { View, Text, TouchableOpacity, FlatList} from "react-native";
-import CheckBox from '@react-native-community/checkbox';
+import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import IconeCalendario from "../../components/iconeCalendario";
 import IconeOpcoes from "../../components/iconeOpcoes";
+import IconeFechar from "../../components/iconeFechar";
+import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import style from  './style';
 import moment from 'moment';
@@ -17,7 +17,9 @@ var data1 = moment().format('MMM') + ', ' + moment().format('YYYY');
 var data2 = moment().format('dddd') + ', ' + moment().format('DD');  
  
 export default function MainPrincipal({navigation}){
-    
+    const [modal1, setModal1] = useState(false);
+    const [modal2, setModal2] = useState(false);
+
   const DATA = [
     {tarefa: 'Tarefa 1'},
     {tarefa: 'Tarefa 2'},
@@ -41,6 +43,8 @@ export default function MainPrincipal({navigation}){
     {tarefa: 'Tarefa 20'},
 
 ]
+
+
 return(
         <SafeAreaView style={style.container}>
             <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>
@@ -51,28 +55,59 @@ return(
                     <Text style={style.data2}>{data2[0].toUpperCase() + data2.substr(1)}</Text>
 
                     <View style={style.view1}> 
-                        <TouchableOpacity onPress={() => navigation.navigate('Calendario')}>
-                            <IconeCalendario> </IconeCalendario>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={{left:10}}>
+                        <TouchableOpacity style={{left:40}}>
                             <IconeOpcoes></IconeOpcoes>
                         </TouchableOpacity>
                     </View>
 
-                    <Text> barra de progesso aqui</Text>
+                    <BarraProgresso color={'#4771b3'} calculo={3/5}></BarraProgresso>
+                    
+                    <Modal animationType="fade" transparent={true} visible={modal1}>
+                        <View style={style.modal}>
+                            <View style={style.modal1View}>
+                                <TouchableOpacity onPress={() => setModal1(false)} style={{ width:25 }}>    
+                                    <IconeFechar color={"white"} ></IconeFechar>
+                                </TouchableOpacity>
 
-                    <TouchableOpacity style={style.botaoAdicionar} >
+                                <Text style={style.textModal1}>Nova tarefa</Text>
+                                <TextInput  style={style.inputModal}
+                                    placeholder='Nome' 
+                                    placeholderTextColor="rgba(255, 255, 255, 0.68)"/> 
+                            </View>
+                        </View>
+                    </Modal>
+                    
+                    <Modal animationType="fade" transparent={true} visible={modal2}>
+                        <View style={style.modal}>
+                            <View style={style.modal2View}>
+                                <TouchableOpacity onPress={() => setModal2(false)} style={{ right:110}}>    
+                                    <IconeFechar color={"#4771b3"} ></IconeFechar>
+                                </TouchableOpacity>
+                                <Text style={style.textModal2}>Tarefa</Text>
+
+                                <TouchableOpacity style={style.botaoRenomear}>
+                                    <Text style={style.textRenomear}>Renomear</Text>
+                                </TouchableOpacity>
+
+                                 <TouchableOpacity style={style.botaoApagar}>
+                                    <Text style={style.textApagar}>Apagar</Text>
+
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    <TouchableOpacity style={style.botaoAdicionar} onPress={() => setModal1(true)} >
                         <BotaoAdicionar></BotaoAdicionar>
                     </TouchableOpacity>
 
-                    <View style={style.flatList}>
+                    <View style={style.flatList} >
                         <FlatList
                         data={DATA}
                         renderItem={({item}) => (
-                            <View style={style.viewList}>
+                            <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
                                 <Text style={style.textList}>{item.tarefa}</Text>
-                            </View> 
+                            </TouchableOpacity> 
                         )}
                     />
                     </View>
@@ -85,10 +120,10 @@ return(
                     <TouchableOpacity  onPress={() => navigation.navigate('MainPrioridadeBaixa')}>
                         <View style={style.menuVerde}></View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeBaixa')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeMedia')}>
                         <View style={style.menuLaranja} ></View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeBaixa')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeAlta')}>
                         <View style={style.menuVermelho} ></View>
                     </TouchableOpacity>
                 </View>

@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, FlatList} from "react-native";
 import CheckBox from '@react-native-community/checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import IconeCalendario from "../../components/iconeCalendario";
 import IconeOpcoes from "../../components/iconeOpcoes";
+import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import style from  './style';
 
@@ -33,16 +33,14 @@ return(
                     <Text style={style.titulo}>Prioridade Baixa</Text>
 
                     <View style={style.view1}> 
-                        <TouchableOpacity onPress={() => navigation.navigate('Calendario')}>
-                            <IconeCalendario> </IconeCalendario>
-                        </TouchableOpacity>
+                        
 
                         <TouchableOpacity style={{left:10}}onPress={() => navigation.navigate('teste')}>
                             <IconeOpcoes></IconeOpcoes>
                         </TouchableOpacity>
                     </View>
 
-                    <Text> barra de progesso aqui</Text>
+                    <BarraProgresso color={'#d3e992'} calculo={1/2}></BarraProgresso>
 
                     <TouchableOpacity style={style.botaoAdicionar}>
                         <BotaoAdicionar></BotaoAdicionar>

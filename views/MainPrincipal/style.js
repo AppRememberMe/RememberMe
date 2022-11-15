@@ -56,7 +56,8 @@ export default StyleSheet.create({
         width: 345,
         height: 'auto',
         left: 15,
-        marginBottom: 15,
+        marginBottom: 10,
+        padding: 3,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -70,6 +71,103 @@ export default StyleSheet.create({
     textList:{
         fontSize: 20,
         color: '#4771b3'
+    },
+    modal:{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modal1View:{
+        borderRadius: 30,
+        padding: 20,
+        width: 300,
+        height: 300,
+        left: 20,
+        backgroundColor: '#4458be',
+        shadowColor: "#4458be",
+        shadowOffset: {
+        width: 10,
+        height: 10
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 20,
+
+    },
+    textModal1:{
+        color: '#fff', 
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        width: 300,
+        left: 70,
+        bottom: 30
+        
+    },
+    inputModal: {
+        width: 250,
+        height: 50,
+        padding: 6,
+        borderRadius: 5,
+        fontSize: 12,
+        letterSpacing: 2,
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center', 
+        borderColor: "#fff",
+        borderWidth: StyleSheet.hairlineWidth,
+
+    },
+    modal2View:{
+        borderRadius: 30,
+        padding: 20,
+        width: 300,
+        height: 200,
+        left: 20,
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        shadowColor: "#4458be",
+        shadowOffset: {
+            width: 10,
+            height: 10
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 15,
+
+    },
+    textModal2:{
+        color: '#4771b3', 
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        width: 300,
+        left: 115,
+        bottom: 30
+        
+    },
+    botaoRenomear: {
+        backgroundColor: '#ffe3a0',
+        width: 250,
+        borderRadius: 10,
+        padding: 6,
+        height: 40,
+    },
+    textRenomear: {
+        color:'#508ebe', 
+        fontSize:16, 
+        textAlign: 'center', 
+        letterSpacing: 2
+    },
+    botaoApagar: {
+        backgroundColor: '#ffafaf',
+        width: 250,
+        borderRadius: 10,
+        padding: 6,
+        height: 40,
+        top: 5
+    },
+    textApagar: {
+        color:'#508ebe', 
+        fontSize:16, 
+        textAlign: 'center', 
+        letterSpacing: 2
     },
     menu:{
         width: 45, 
