@@ -188,6 +188,21 @@ export default StyleSheet.create({
         textAlign: 'center', 
         letterSpacing: 2
     },
+    modalOpcoesView:{
+        padding: 20,
+        width: 100,
+        height: 250,
+        top: 48,
+        alignSelf:'flex-end',
+        alignItems: 'center',
+        backgroundColor: '#4458be',
+        shadowColor: "#4458be",
+        shadowOpacity: 0.5,
+        shadowRadius: 15,
+        borderBottomStartRadius: 30,
+        //borderTopStartRadius: 10
+        
+    },
     menu:{
         width: 45, 
         position:'absolute', 

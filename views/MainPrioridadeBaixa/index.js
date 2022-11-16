@@ -3,10 +3,9 @@ import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-n
 import CheckBox from '@react-native-community/checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import IconeOpcoes from "../../components/iconeOpcoes";
-import IconeFechar from "../../components/iconeFechar";
 import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
+import { SimpleLineIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import style from  './style';
 
 
@@ -14,6 +13,8 @@ import style from  './style';
 export default function MainPrioridadeBaixa({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
+    const [modalOpcoes, setModalOpcoes] = useState(false);
+
     const DATA = [
         {tarefa: 'Tarefa 1'},
         {tarefa: 'Tarefa 2'},
@@ -37,12 +38,36 @@ return(
                     <View style={style.view1}> 
                         
 
-                        <TouchableOpacity style={{left:30}}onPress={() => navigation.navigate('teste')}>
-                            <IconeOpcoes></IconeOpcoes>
+                        <TouchableOpacity style={{left:30}} onPress={() => setModalOpcoes(true)}>
+                            <SimpleLineIcons name="options-vertical" size={34} color="#4771b3" />
                         </TouchableOpacity>
                     </View>
 
-                    <BarraProgresso color={'#d3e992'} calculo={1/2}></BarraProgresso>
+                    {/* Modal de Opções -- onDimiss*/ }
+                    <Modal animationType="fade" transparent={true} visible={modalOpcoes}>
+                        
+                        <View style={style.modalOpcoesView}>
+                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'white'} />    
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:20 }}>    
+                                <Ionicons name="person-circle" size={32} color="white" />                            
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:45 }}>    
+                                <MaterialIcons name="delete" size={30} color="white" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:80 }}>    
+                                <SimpleLineIcons name="logout" size={24} color="white" />
+                            </TouchableOpacity>
+                            {/* <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
+                            </TouchableOpacity> */}
+                        </View>
+                    </Modal>
+                    <BarraProgresso color={'#d3e992'} ></BarraProgresso>
 
                     {/* Modal Adiconar nova tarefa */}
                     <Modal animationType="fade" transparent={true} visible={modal1}>
@@ -50,7 +75,7 @@ return(
                             <View style={style.modal1View}>
 
                                 <TouchableOpacity onPress={() => setModal1(false)} style={{ right:110}}>    
-                                    <IconeFechar color={"#4458be"} ></IconeFechar>
+                                    <Ionicons name="md-close-outline" size={30} color={'#4458be'} />
                                 </TouchableOpacity>
                         
                                 <Text style={style.textModal1}>Nova tarefa</Text>
@@ -71,7 +96,7 @@ return(
                         <View style={style.modal}>
                             <View style={style.modal2View}>
                                 <TouchableOpacity onPress={() => setModal2(false)} style={{ right:110}}>    
-                                    <IconeFechar color={"#4771b3"} ></IconeFechar>
+                                    <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
                                 </TouchableOpacity>
                                 <Text style={style.textModal2}>Tarefa</Text>
 

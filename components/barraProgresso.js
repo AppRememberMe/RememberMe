@@ -4,7 +4,7 @@ import { ProgressBar } from 'react-native-paper';
 
 export default function BarraProgresso(props){
     return(
-        <ProgressBar progress={props.calculo} color={props.color} style={style.barra}/>
+        <ProgressBar progress={1} color={props.color} style={style.barra}/>
     )
 }
 const style = StyleSheet.create({
