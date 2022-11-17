@@ -191,7 +191,7 @@ export default StyleSheet.create({
     modalOpcoesView:{
         padding: 20,
         width: 100,
-        height: 250,
+        height: 200,
         top: 48,
         alignSelf:'flex-end',
         alignItems: 'center',

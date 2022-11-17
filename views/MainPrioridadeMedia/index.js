@@ -46,21 +46,15 @@ return(
                             <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35}}>    
                                 <Ionicons name="md-close-outline" size={30} color={'white'} />    
                             </TouchableOpacity>
-                            
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:20 }}>    
-                                <Ionicons name="person-circle" size={32} color="white" />                            
-                            </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:45 }}>    
+                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:25 }}>    
                                 <MaterialIcons name="delete" size={30} color="white" />
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:80 }}>    
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:60 }}>    
                                 <SimpleLineIcons name="logout" size={24} color="white" />
                             </TouchableOpacity>
-                            {/* <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
-                                <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
-                            </TouchableOpacity> */}
+                            
                         </View>
                     </Modal>
 

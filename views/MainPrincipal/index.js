@@ -20,6 +20,7 @@ export default function MainPrincipal({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
     const [modalOpcoes, setModalOpcoes] = useState(false);
+    const [modalApagar, setModalApagar] = useState(false);
     const [checked, setChecked] = useState('');
 
   const DATA = [
@@ -69,24 +70,36 @@ return(
                             <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35}}>    
                                 <Ionicons name="md-close-outline" size={30} color={'white'} />    
                             </TouchableOpacity>
-                            
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:20 }}>    
-                                <Ionicons name="person-circle" size={32} color="white" />                            
-                            </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:45 }}>    
+                            <TouchableOpacity onPress={() => setModalApagar(true)} style={{ width:35, top:25 }}>    
                                 <MaterialIcons name="delete" size={30} color="white" />
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:80 }}>    
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:60 }}>    
                                 <SimpleLineIcons name="logout" size={24} color="white" />
                             </TouchableOpacity>
-                            {/* <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
-                                <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
-                            </TouchableOpacity> */}
+                            
                         </View>
                     </Modal>
-                    
+                    {/* Modal Apagar */ }
+
+                    <Modal animationType="fade" transparent={true} visible={modalApagar}>
+                        <View style={style.modalApagar}>
+                            {/* <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:35}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'white'} />    
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:35, top:25 }}> 
+                                <Text>Sim</Text>   
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:35, top:60 }}> 
+                                <Text>Não</Text>   
+                            </TouchableOpacity> */}
+                            
+                        </View>
+                    </Modal>
+
                     <BarraProgresso color={'#4771b3'}></BarraProgresso>
 
                     {/* Modal Adiconar nova tarefa */}

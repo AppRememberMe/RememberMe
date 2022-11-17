@@ -189,7 +189,7 @@ export default StyleSheet.create({
     modalOpcoesView:{
         padding: 20,
         width: 100,
-        height: 250,
+        height: 200,
         top: 48,
         alignSelf:'flex-end',
         alignItems: 'center',
@@ -200,6 +200,23 @@ export default StyleSheet.create({
         borderBottomStartRadius: 30,
         //borderTopStartRadius: 10
         
+    },
+    modalApagar:{
+        borderRadius: 30,
+        padding: 20,
+        width: 300,
+        height: 200,
+        left: 20,
+        alignItems: 'center',
+        backgroundColor: 'red',
+        shadowColor: "#4458be",
+        shadowOffset: {
+            width: 10,
+            height: 10
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 15,
+
     },
     menu:{
         width: 45, 
