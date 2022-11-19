@@ -219,7 +219,7 @@ export default StyleSheet.create({
         fontSize:16, 
         textAlign: 'center',
         fontWeight: '400',
-        letterSpacing: 2,
+        letterSpacing: 1,
     },
     textBotao:{
         color:'#4771b3', 
