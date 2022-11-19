@@ -18,15 +18,16 @@ export default StyleSheet.create({
         position: 'absolute',
         width: 400,
         height: 800
-
     },
     view1:{
         flexDirection: 'row-reverse', 
-        justifyContent: 'space-evently',
+        justifyContent: 'space-around',
         direction: 'rtl', 
         alignSelf: 'flex-end',
-        width: 130,
-        bottom: 30
+        width: 150,
+        height:40,
+        bottom: 15,
+        right:10
     },
     data1:{
         color: '#4771b3',
@@ -66,7 +67,6 @@ export default StyleSheet.create({
         borderColor: '#f7f5f5',
         borderRadius: 5,
         borderWidth: 2,
-       
     },
     textList:{
         fontSize: 20,
@@ -91,7 +91,6 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 20,
-
     },
     textModal1:{
         color: '#fff', 
@@ -99,8 +98,7 @@ export default StyleSheet.create({
         fontWeight: 'bold', 
         width: 300,
         left: 70,
-        bottom: 30
-        
+        bottom: 30    
     },
     inputModal: {
         width: 250,
@@ -129,7 +127,6 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 15,
-
     },
     textModal2:{
         color: '#4771b3', 
@@ -137,8 +134,7 @@ export default StyleSheet.create({
         fontWeight: 'bold', 
         width: 300,
         left: 115,
-        bottom: 30
-        
+        bottom: 30    
     },
     botaoAdicionarModal:{
         justifyContent: "center",
@@ -149,7 +145,6 @@ export default StyleSheet.create({
         padding: 6,
         height: 50,
         top: 10
-
     },
     textBotaoAdicionarModal:{
         color:'#4458be', 
@@ -186,29 +181,14 @@ export default StyleSheet.create({
         textAlign: 'center', 
         letterSpacing: 2
     },
-    modalOpcoesView:{
-        padding: 20,
-        width: 100,
-        height: 200,
-        top: 48,
-        alignSelf:'flex-end',
-        alignItems: 'center',
-        backgroundColor: '#4458be',
-        shadowColor: "#4458be",
-        shadowOpacity: 0.5,
-        shadowRadius: 15,
-        borderBottomStartRadius: 30,
-        //borderTopStartRadius: 10
-        
-    },
     modalApagar:{
         borderRadius: 30,
         padding: 20,
         width: 300,
         height: 200,
         left: 20,
-        alignItems: 'center',
-        backgroundColor: 'red',
+        alignItems: "center",
+        backgroundColor: '#4458be',
         shadowColor: "#4458be",
         shadowOffset: {
             width: 10,
@@ -216,7 +196,41 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 15,
-
+    },
+    botoes:{
+        width: 250,
+        height: 60,
+        top:10,
+        flexDirection:'row',
+        alignItems: "center", 
+        justifyContent: 'space-around'
+    },
+    botaoSim:{
+       backgroundColor: '#d3e992',
+        width:115,
+        height: 50, 
+        borderRadius: 50,
+    },
+    botaoNao:{
+       backgroundColor:'#ffafaf', 
+        width:115, 
+        height: 50,
+        borderRadius: 50,
+    },
+    texto:{
+        color:'#fff', 
+        fontSize:16, 
+        textAlign: 'center',
+        fontWeight: '400',
+        letterSpacing: 2,
+    },
+    textBotao:{
+        color:'#4771b3', 
+        fontSize:14, 
+        textAlign: 'center',
+        fontWeight: 'bold',
+        letterSpacing: 2,
+        top: 15
     },
     menu:{
         width: 45, 
@@ -224,7 +238,6 @@ export default StyleSheet.create({
         flexDirection: 'column', 
         direction: 'ltr', 
         alignItems:'flex-end',
-        
     },
     menuBranco:{
         width: 30,
@@ -232,7 +245,6 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
-        
     },
     menuVerde:{
         width: 30,

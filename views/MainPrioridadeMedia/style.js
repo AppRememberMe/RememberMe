@@ -14,28 +14,23 @@ export default StyleSheet.create({
     view:{
         backgroundColor: '#fff',
         left: 45,
-        //borderWidth: StyleSheet.hairlineWidth,
-        //borderWidth: 3,
-        //borderColor: '#d3e992',
         borderBottomLeftRadius: 15,
         position: 'absolute',
         width: 400,
         height: 800
-
     },
     view1:{
         flexDirection: 'row-reverse', 
-        justifyContent: 'space-evently',
+        justifyContent: 'space-around',
         direction: 'rtl', 
         alignSelf: 'flex-end',
-        width: 130,
-        bottom: 30
+        width: 150,
+        height:40,
+        bottom: 20,
+        right:10
     },
     titulo:{
         color: '#4771b3', 
-        //textShadowColor:'#d3e992',
-        //textShadowOffset:{width: 5, height: 5},
-        //textShadowRadius:10,
         left: 25, 
         top: 30, 
         fontSize: 24, 
@@ -67,7 +62,6 @@ export default StyleSheet.create({
         borderRightColor: '#ffe3a0',
         borderColor: '#fff',
         borderRadius: 5,
-
     },
     textList:{
         fontSize: 20,
@@ -93,7 +87,6 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 20,
-
     },
     textModal1:{
         color: '#4458be', 
@@ -102,7 +95,6 @@ export default StyleSheet.create({
         width: 300,
         left: 90,
         bottom: 30,
-        
     },
     botaoAdicionarModal:{
         justifyContent: "center",
@@ -113,7 +105,6 @@ export default StyleSheet.create({
         padding: 6,
         height: 50,
         borderRadius: 5,
-
     },
     textBotaoAdicionarModal:{
         color:'#fff', 
@@ -151,7 +142,6 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 15,
-
     },
     textModal2:{
         color: '#4771b3', 
@@ -160,7 +150,6 @@ export default StyleSheet.create({
         width: 300,
         left: 115,
         bottom: 30
-        
     },
     botaoRenomear: {
         backgroundColor: '#ffe3a0',
@@ -189,36 +178,70 @@ export default StyleSheet.create({
         textAlign: 'center', 
         letterSpacing: 2
     },
-    modalOpcoesView:{
+    modalApagar:{
+        borderRadius: 30,
         padding: 20,
-        width: 100,
+        width: 300,
         height: 200,
-        top: 48,
-        alignSelf:'flex-end',
-        alignItems: 'center',
+        left: 20,
+        alignItems: "center",
         backgroundColor: '#4458be',
         shadowColor: "#4458be",
+        shadowOffset: {
+            width: 10,
+            height: 10
+        },
         shadowOpacity: 0.5,
         shadowRadius: 15,
-        borderBottomStartRadius: 30,
-        //borderTopStartRadius: 10
-        
+    },
+    botoes:{
+        width: 250,
+        height: 60,
+        top:10,
+        flexDirection:'row',
+        alignItems: "center", 
+        justifyContent: 'space-around'
+    },
+    botaoSim:{
+       backgroundColor: '#d3e992',
+        width:115,
+        height: 50, 
+        borderRadius: 50,
+    },
+    botaoNao:{
+       backgroundColor:'#ffafaf', 
+        width:115, 
+        height: 50,
+        borderRadius: 50,
+    },
+    texto:{
+        color:'#fff', 
+        fontSize:16, 
+        textAlign: 'center',
+        fontWeight: '400',
+        letterSpacing: 2,
+    },
+    textBotao:{
+        color:'#4771b3', 
+        fontSize:14, 
+        textAlign: 'center',
+        fontWeight: 'bold',
+        letterSpacing: 2,
+        top: 15
     },
     menu:{
         width: 45, 
         position:'absolute', 
         flexDirection: 'column', 
         direction: 'ltr', 
-        alignItems:'flex-end',
-        
+        alignItems:'flex-end',    
     },
     menuBranco:{
         width: 30,
         height: 160,
         backgroundColor: '#fff',
         borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
-        
+        borderBottomLeftRadius: 15,  
     },
     menuVerde:{
         width: 30,

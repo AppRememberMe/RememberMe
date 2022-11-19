@@ -13,7 +13,7 @@ import style from  './style';
 export default function MainPrioridadeBaixa({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
-    const [modalOpcoes, setModalOpcoes] = useState(false);
+    const [modalApagar, setModalApagar] = useState(false);
 
     const DATA = [
         {tarefa: 'Tarefa 1'},
@@ -35,30 +35,34 @@ return(
 
                     <Text style={style.titulo}>Prioridade Baixa</Text>
 
-                    <View style={style.view1}> 
-                        
+                    <View style={style.view1} > 
+                        <TouchableOpacity onPress={() => setModalApagar(true)} >    
+                                <MaterialIcons name="delete" size={32} color="#4771b3" />
+                            </TouchableOpacity>
 
-                        <TouchableOpacity style={{left:30}} onPress={() => setModalOpcoes(true)}>
-                            <SimpleLineIcons name="options-vertical" size={34} color="#4771b3" />
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{right: 30, top:2}}>    
+                                <SimpleLineIcons name="logout" size={26} color="#4771b3" />
+                            </TouchableOpacity>
                     </View>
 
-                    {/* Modal de Opções -- onDimiss*/ }
-                    <Modal animationType="fade" transparent={true} visible={modalOpcoes}>
-                        
-                        <View style={style.modalOpcoesView}>
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35}}>    
-                                <Ionicons name="md-close-outline" size={30} color={'white'} />    
-                            </TouchableOpacity>
+                    {/* Modal Apagar */ }
+                    <Modal animationType="fade" transparent={true} visible={modalApagar}>
+                        <View style={style.modal}>
+                            <View style={style.modalApagar}>
+                                <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:25}}>    
+                                    <Ionicons name="md-close-outline" size={30} color={'#fff'} />    
+                                </TouchableOpacity>
+                                <Text style={style.texto}>Deseja apagar todas as tarefas?</Text>
+                            <View style={style.botoes}>
+                                <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoSim}> 
+                                    <Text style={style.textBotao}>Sim</Text>   
+                                </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => setModalOpcoes(false)} style={{ width:35, top:25 }}>    
-                                <MaterialIcons name="delete" size={30} color="white" />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width:35, top:60 }}>    
-                                <SimpleLineIcons name="logout" size={24} color="white" />
-                            </TouchableOpacity>
-                            
+                                <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoNao}> 
+                                    <Text style={style.textBotao}>Não</Text>   
+                                </TouchableOpacity>
+                            </View>
+                            </View>
                         </View>
                     </Modal>
                     
