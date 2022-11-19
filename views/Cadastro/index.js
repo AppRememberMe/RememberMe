@@ -34,7 +34,7 @@ export default function Cadastro({navigation}) {
                     <InputsSenha place='Senha'> </InputsSenha>
                 </View>
                 <View style={{bottom:30}}>
-                    <InputsSenha place='Senha'> </InputsSenha>
+                    <InputsSenha place='Confirmar senha'> </InputsSenha>
                 </View>
             </View>
 
