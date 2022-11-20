@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './views/Login';
-import Cadastro from './views/Cadastro';
-import MainPrincipal from './views/MainPrincipal';
-import MainPrioridadeBaixa from './views/MainPrioridadeBaixa';
-import MainPrioridadeMedia from './views/MainPrioridadeMedia';
-import MainPrioridadeAlta from './views/MainPrioridadeAlta';
+import Login from './src/views/Login';
+import Cadastro from './src/views/Cadastro';
+import MainPrincipal from './src/views/MainPrincipal';
+import MainPrioridadeBaixa from './src/views/MainPrioridadeBaixa';
+import MainPrioridadeMedia from './src/views/MainPrioridadeMedia';
+import MainPrioridadeAlta from './src/views/MainPrioridadeAlta';
 
 
 const Stack = createNativeStackNavigator();

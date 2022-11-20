@@ -1,5 +1,5 @@
 import  React from 'react';
-import { StyleSheet, View, TextInput, Pressable  } from 'react-native';
+import { StyleSheet, View, TextInput} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Inputs(props){
