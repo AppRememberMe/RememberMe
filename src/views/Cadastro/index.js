@@ -21,7 +21,7 @@ export default function Cadastro({navigation}) {
             <Image style={style.logo} source={require('../../assets/logoBranca.png')} />
 
             <View style={{top: 150}}> 
-                <Inputs place='User'> </Inputs>
+                <Inputs place='Usuário'> </Inputs>
                 
                 <TextInput style={style.input} 
                 placeholder='Email' 
