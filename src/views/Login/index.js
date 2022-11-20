@@ -23,7 +23,7 @@ export default function Login({navigation}) {
             <Image style={style.logo} source={require('../../assets/logoBranca.png')} />
             <View style={{top: 180}}> 
 
-              <Inputs place='Usuário' > </Inputs>
+              <Inputs place='User' > </Inputs>
               <InputsSenha place='Senha'> </InputsSenha>
             </View>
 
