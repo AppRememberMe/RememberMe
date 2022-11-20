@@ -7,7 +7,8 @@ export default function Inputs(props){
     return(
         <View>
             <TextInput style={style.input} 
-            placeholder={props.place} 
+            placeholder={props.place}
+            onChangeText={props.onChangeText} 
             placeholderTextColor="rgba(255, 255, 255, 0.68)"
             />
             <View style={style.icon}> 

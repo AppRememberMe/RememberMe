@@ -11,6 +11,7 @@ export default function InputsSenha(props){
             secureTextEntry
             placeholder={props.place} 
             placeholderTextColor="rgba(255, 255, 255, 0.68)"
+            onChangeText={props.onChangeText}
             />
             <View style={style.icon}> 
                 <MaterialCommunityIcons name="account-lock" size={24} color="#fff" />
