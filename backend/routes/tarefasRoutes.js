@@ -41,5 +41,20 @@ router.delete('/deletarTudo', async (req,res) => {
     }
 
 })
+// deletar todas as tarefas por prioridade especifica
+
+router.delete('/deletarTudoPrioridade', async (req,res) => {
+    
+    const{user, prioridade} = req.body
+
+    try {
+        await Tarefas.deleteMany({user: user}, {prioridade: prioridade})
+        res.status(200).json({message: 'Tarefas apagadas!'})
+        
+    } catch (error) {
+        res.status(500).json({error: error})
+    }
+
+})
  
 module.exports = router

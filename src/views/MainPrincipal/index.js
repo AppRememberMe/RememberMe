@@ -43,13 +43,13 @@ export default function MainPrincipal({navigation}){
   async function deletarTarefas(){
 
     let res = await fetch('http://192.168.0.15:3000/tarefas/deletarTudo', {
-    method: 'POST',
+    method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user: "637ab9e7539000938bdd05b6",
+        user: "637ab9e7539000938bdd05b6"
       })
     }); 
     setModalApagar(false)

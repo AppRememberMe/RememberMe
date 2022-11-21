@@ -31,6 +31,22 @@ export default function MainPrioridadeMedia({navigation}){
         });
         setModal1(false);
     }
+    //deletar todas as tarefas de prioridade baixa
+    async function deletarTarefas(){
+
+        let res = await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "637ab9e7539000938bdd05b6",
+            prioridade: "media"
+        })
+        }); 
+        setModalApagar(false)
+    }
     const DATA = [
         {tarefa: 'Tarefa 10'},
         {tarefa: 'Tarefa 11'},
@@ -66,7 +82,7 @@ return(
                                 </TouchableOpacity>
                                 <Text style={style.texto}>Deseja apagar todas as tarefas?</Text>
                             <View style={style.botoes}>
-                                <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoSim}> 
+                                <TouchableOpacity onPress={() => deletarTarefas()} style={style.botaoSim}> 
                                     <Text style={style.textBotao}>Sim</Text>   
                                 </TouchableOpacity>
 
