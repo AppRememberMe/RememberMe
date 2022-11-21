@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import { Text, View, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity  } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,6 +8,27 @@ import InputsSenha from '../../components/inputsSenha.js';
 import style from  './style';
 
 export default function Login({navigation}) {
+
+  const[user, setUser] = useState(null);
+  const[senha, setSenha] = useState(null);
+
+  //envio do formulario de cadastro
+  async function login(){
+
+    let res = await fetch('http://192.168.0.15:3000/usuarios/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: user,
+        senha: senha,
+      })
+    });
+
+  }
+
 
   return (
    
@@ -23,8 +44,8 @@ export default function Login({navigation}) {
             <Image style={style.logo} source={require('../../assets/logoBranca.png')} />
             <View style={{top: 180}}> 
 
-              <Inputs place='Usuário' > </Inputs>
-              <InputsSenha place='Senha'> </InputsSenha>
+              <Inputs place='Usuário' onChangeText={(text) => setUser(text)} > </Inputs>
+              <InputsSenha place='Senha' onChangeText={(text) => setSenha(text)}> </InputsSenha>
             </View>
 
             <TouchableOpacity style={style.botao} onPress={() => navigation.navigate('MainPrincipal')}> 

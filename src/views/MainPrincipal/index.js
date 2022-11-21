@@ -21,6 +21,39 @@ export default function MainPrincipal({navigation}){
     const [modal2, setModal2] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
     const [checked, setChecked] = useState('');
+    const[nomeTarefa, setNomeTarefa]= useState(null);
+
+    //criar tarefa
+    async function tarefa(){
+    let res = await fetch('http://192.168.0.15:3000/tarefas/create', {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        user: "637ab9e7539000938bdd05b6",
+        nomeTarefa: nomeTarefa,
+        prioridade: checked,
+    })
+    });
+    setModal1(false);
+  }
+  //deletar todas as tarefas
+  async function deletarTarefas(){
+
+    let res = await fetch('http://192.168.0.15:3000/tarefas/deletarTudo', {
+    method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: "637ab9e7539000938bdd05b6",
+      })
+    }); 
+    setModalApagar(false)
+  }
 
   const DATA = [
     {tarefa: 'Tarefa 1'},
@@ -75,7 +108,7 @@ return(
                                 </TouchableOpacity>
                                 <Text style={style.texto}>Deseja apagar todas as tarefas?</Text>
                             <View style={style.botoes}>
-                                <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoSim}> 
+                                <TouchableOpacity onPress={() => deletarTarefas()} style={style.botaoSim}> 
                                     <Text style={style.textBotao}>Sim</Text>   
                                 </TouchableOpacity>
 
@@ -98,18 +131,16 @@ return(
                                 </TouchableOpacity>
 
                                 <Text style={style.textModal1}>Nova tarefa</Text>
-                                <TextInput  style={style.inputModal}
-                                    placeholder='Nome' 
-                                    placeholderTextColor="#fff"/>
+                                <TextInput  style={style.inputModal} placeholder='Nome' placeholderTextColor="#fff" onChangeText={(text) => setNomeTarefa(text)}/>
 
                                 <RadioButton.Group  onValueChange={value => setChecked(value)} value={checked} >
-                                    <RadioButton.Item label="Prioridade alta" value="1" labelStyle={{color:"#ffafaf", fontWeight:'500', right:50}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
-                                    <RadioButton.Item label="Prioridade média" value="2" labelStyle={{color:"#ffe3a0", fontWeight:'500', right:30}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
-                                    <RadioButton.Item label="Prioridade baixa" value="3" labelStyle={{color:"#d3e992", fontWeight:'500', right:40}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                    <RadioButton.Item label="Prioridade alta" value="alta" labelStyle={{color:"#ffafaf", fontWeight:'500', right:50}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                    <RadioButton.Item label="Prioridade média" value="media" labelStyle={{color:"#ffe3a0", fontWeight:'500', right:30}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
+                                    <RadioButton.Item label="Prioridade baixa" value="baixa" labelStyle={{color:"#d3e992", fontWeight:'500', right:40}} position={"leading"} mode={'android'} color={"white"} uncheckedColor={"white"}/>
                                 </RadioButton.Group>
                                     
                                 
-                                <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                <TouchableOpacity onPress={() => tarefa()} style={style.botaoAdicionarModal}>
                                     <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
                                 </TouchableOpacity>
                             </View>

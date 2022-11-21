@@ -18,11 +18,8 @@ export default function Cadastro({navigation}) {
 
   //envio do formulario de cadastro
   async function cadastro(){
-    console.log(user)
-    console.log(email)
-    console.log(senha)
 
-    await fetch('http://192.168.0.15:3000/usuarios', {
+    let res = await fetch('http://192.168.0.15:3000/usuarios/create', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

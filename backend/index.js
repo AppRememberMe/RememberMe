@@ -13,9 +13,10 @@ app.use(express.json())
 
 //Rotas da API
 const usuariosRoutes = require('./routes/usuariosRoutes')
-
 app.use('/usuarios', usuariosRoutes)
 
+const tarefasRoutes = require('./routes/tarefasRoutes')
+app.use('/tarefas', tarefasRoutes)
 
 //Conexão banco de dados
 

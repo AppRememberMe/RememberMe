@@ -14,7 +14,23 @@ export default function MainPrioridadeMedia({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
-
+    const [nomeTarefa, setNomeTarefa] = useState(null);
+    //criar tarefa
+    async function tarefa(){
+        let res = await fetch('http://192.168.0.15:3000/tarefas/create', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "637ab9e7539000938bdd05b6",
+            nomeTarefa: nomeTarefa,
+            prioridade: "media",
+        })
+        });
+        setModal1(false);
+    }
     const DATA = [
         {tarefa: 'Tarefa 10'},
         {tarefa: 'Tarefa 11'},
@@ -75,9 +91,9 @@ return(
                         
                                 <Text style={style.textModal1}>Nova tarefa</Text>
 
-                                <TextInput  style={style.inputModal}/>
+                                <TextInput  style={style.inputModal} onChangeText={(text) => setNomeTarefa(text)}/>
                     
-                                <TouchableOpacity onPress={() => setModal1(false)} style={style.botaoAdicionarModal}>
+                                <TouchableOpacity onPress={() => tarefa()} style={style.botaoAdicionarModal}>
                                     <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
                                 </TouchableOpacity>
 
