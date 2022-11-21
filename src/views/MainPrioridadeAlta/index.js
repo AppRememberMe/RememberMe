@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,6 +13,11 @@ export default function MainPrioridadeAlta({navigation}){
     const [modal2, setModal2] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
     const [nomeTarefa, setNomeTarefa] = useState(null);
+    const[dados, setDados]= useState(null)
+    
+    useEffect(()=>{
+        listarTarefa();
+    });
     //criar tarefa
     async function tarefa(){
         let res = await fetch('http://192.168.0.15:3000/tarefas/create', {
@@ -27,7 +32,25 @@ export default function MainPrioridadeAlta({navigation}){
             prioridade: "alta",
         })
         });
+        listarTarefa();
         setModal1(false);
+    }    
+    // listar  as tarefas
+    async function listarTarefa(){
+        let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "637ab9e7539000938bdd05b6",
+            prioridade: "alta"
+        })
+        });
+
+        let json = await response.json();
+        setDados(json);
     }
     //deletar todas as tarefas de prioridade alta
     async function deletarTarefas(){
@@ -43,13 +66,9 @@ export default function MainPrioridadeAlta({navigation}){
             prioridade: "alta"
         })
         }); 
+        listarTarefa();
         setModalApagar(false)
     }
-    const DATA = [
-        {tarefa: 'Tarefa 8'},
-        {tarefa: 'Tarefa 9'},
-    
-    ]
 return(
         <SafeAreaView style={style.container}>
             <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>
@@ -142,11 +161,11 @@ return(
 
                     <View style={style.flatList} >
                         <FlatList
-                        data={DATA}
+                        data={dados}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
                                  
-                                <Text style={style.textList} icon={'start'}>{item.tarefa} </Text>
+                                <Text style={style.textList} icon={'start'}>{item.nomeTarefa} </Text>
                             </TouchableOpacity> 
                         )}
                     />

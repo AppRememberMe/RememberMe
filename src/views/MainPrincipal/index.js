@@ -1,4 +1,4 @@
-import React,{useState, useRef} from "react";
+import React,{useState, useEffect} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput,} from "react-native";
 import { RadioButton  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,23 +22,54 @@ export default function MainPrincipal({navigation}){
     const [modalApagar, setModalApagar] = useState(false);
     const [checked, setChecked] = useState('');
     const[nomeTarefa, setNomeTarefa]= useState(null);
+    const[display, setDisplay]= useState('none');
+    const[dados, setDados]= useState(null)
 
+    useEffect(()=>{
+        listarTarefa();
+    });
     //criar tarefa
     async function tarefa(){
-    let res = await fetch('http://192.168.0.15:3000/tarefas/create', {
-    method: 'POST',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        user: "637ab9e7539000938bdd05b6",
-        nomeTarefa: nomeTarefa,
-        prioridade: checked,
-    })
-    });
-    setModal1(false);
-  }
+        let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "637ab9e7539000938bdd05b6",
+            nomeTarefa: nomeTarefa,
+            prioridade: checked,
+        })
+        });
+
+        let json = await response.json();
+        if(json == 'error'){
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none')
+            },3000);
+        }
+        listarTarefa();
+        setModal1(false);
+    }
+
+  // listar todas as tarefas
+    async function listarTarefa(){
+        let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: "637ab9e7539000938bdd05b6",
+        })
+        });
+
+        let json = await response.json();
+        setDados(json);
+    }
   //deletar todas as tarefas
   async function deletarTarefas(){
 
@@ -52,32 +83,9 @@ export default function MainPrincipal({navigation}){
         user: "637ab9e7539000938bdd05b6"
       })
     }); 
+    listarTarefa();
     setModalApagar(false)
   }
-
-  const DATA = [
-    {tarefa: 'Tarefa 1'},
-    {tarefa: 'Tarefa 2'},
-    {tarefa: 'Tarefa 3'},
-    {tarefa: 'Tarefa 4'},
-    {tarefa: 'Tarefa 5'},
-    {tarefa: 'Tarefa 6'},
-    {tarefa: 'Tarefa 7'},
-    {tarefa: 'Tarefa 8'},
-    {tarefa: 'Tarefa 9'},
-    {tarefa: 'Tarefa 10'},
-    {tarefa: 'Tarefa 11'},
-    {tarefa: 'Tarefa 12'},
-    {tarefa: 'Tarefa 13'},
-    {tarefa: 'Tarefa 14'},
-    {tarefa: 'Tarefa 15'},
-    {tarefa: 'Tarefa 16'},
-    {tarefa: 'Tarefa 17'},
-    {tarefa: 'Tarefa 18'},
-    {tarefa: 'Tarefa 19'},
-    {tarefa: 'Tarefa 20'},
-
-]
 
 
 return(
@@ -176,10 +184,10 @@ return(
 
                     <View style={style.flatList} >
                         <FlatList
-                        data={DATA}
+                        data={dados}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
-                                <Text style={style.textList} icon={'start'}>{item.tarefa} </Text>
+                                <Text style={style.textList} icon={'start'}>{item.nomeTarefa} </Text>
                             </TouchableOpacity> 
                         )}
                     />
