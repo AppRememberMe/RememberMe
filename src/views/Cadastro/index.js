@@ -13,13 +13,20 @@ export default function Cadastro({navigation}) {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState(null);
   const [senha, setSenha] = useState(null);
-  const[login, setLogin] = useState(null);
+  const[confirmarSenha, setConfirmarSenha] = useState(null);
+  const[display, setDisplay]= useState('none');
 
-
+  
   //envio do formulario de cadastro
   async function cadastro(){
-
-    let res = await fetch('http://192.168.0.15:3000/usuarios/create', {
+    if(senha != confirmarSenha){
+      setDisplay("As senhas são diferentes!");
+        setTimeout(() => {
+            setDisplay('none')
+        },3000);
+      return
+     }
+    let response = await fetch('http://192.168.0.15:3000/usuarios/create', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -31,6 +38,15 @@ export default function Cadastro({navigation}) {
         senha: senha,
       })
     });
+    let json = await response.json();
+    if(json == 422){
+      setDisplay("Preencha todos os campos!");
+      setTimeout(() => {
+          setDisplay('none')
+      },3000);
+    }else{
+      navigation.navigate('Login');
+    }
   }
 
   return (
@@ -43,7 +59,12 @@ export default function Cadastro({navigation}) {
       <SafeAreaView >
           <View style={style.view}>
             <Image style={style.logo} source={require('../../assets/logoBranca.png')} />
-
+            
+            {display && (
+              <View   style={{top: 150, width:300, alignItems: "center", display:'flex'}}>
+              <Text style={style.mensagem(display)}>{display}</Text>
+              </View>
+            )}
             <View style={{top: 150}}> 
                 <Inputs place='Usuário' onChangeText={(text) => setUser(text)}> </Inputs>
                 
@@ -53,7 +74,7 @@ export default function Cadastro({navigation}) {
                     <MaterialIcons name="email" size={20} color="#fff" />            
                 </View>
                 <View style={{bottom:20}}>
-                    <InputsSenha place='Senha' > </InputsSenha>
+                    <InputsSenha place='Senha' onChangeText={(text) => setConfirmarSenha(text)}> </InputsSenha>
                 </View>
                 <View style={{bottom:30}}>
                     <InputsSenha place='Confirmar senha' onChangeText={(text) => setSenha(text)}> </InputsSenha>

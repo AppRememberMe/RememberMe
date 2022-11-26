@@ -5,38 +5,60 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import { SimpleLineIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from  './style';
 
 
 export default function MainPrioridadeAlta({navigation}){
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
+    const [modal3, setModal3] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
     const [nomeTarefa, setNomeTarefa] = useState(null);
     const[dados, setDados]= useState(null)
+    const[user, setUser]= useState(null);
     
     useEffect(()=>{
-        listarTarefa();
+        async function getUser(){
+            let res = await AsyncStorage.getItem('userData');
+            let json = JSON.parse(res);
+            setUser(json._id);
+        }
+        getUser();
     });
     //criar tarefa
     async function tarefa(){
-        let res = await fetch('http://192.168.0.15:3000/tarefas/create', {
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
+        let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: "637ab9e7539000938bdd05b6",
+            user: user._id,
             nomeTarefa: nomeTarefa,
             prioridade: "alta",
         })
         });
+
+        let json = await response.json();
+        if(json == 'error'){
+            setDisplay('flex');
+            setTimeout(() => {
+                setDisplay('none')
+            },3000);
+        }
         listarTarefa();
         setModal1(false);
-    }    
-    // listar  as tarefas
+    }
+    // listar  as tarefas por prioridade
     async function listarTarefa(){
+        let res = await AsyncStorage.getItem('userData');
+        let res1 = JSON.parse(res);
+        setUser(res1._id);
+
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
         method: 'POST',
         headers: {
@@ -44,31 +66,38 @@ export default function MainPrioridadeAlta({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: "637ab9e7539000938bdd05b6",
+            user: user,
             prioridade: "alta"
         })
         });
-
+        console.log(user)
         let json = await response.json();
         setDados(json);
     }
     //deletar todas as tarefas de prioridade alta
     async function deletarTarefas(){
+        let res = await AsyncStorage.getItem('userData');
+        let res1 = JSON.parse(res);
+        setUser(res1._id);
 
-        let res = await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
+        let response = await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: "637ab9e7539000938bdd05b6",
+            user: user,
             prioridade: "alta"
         })
         }); 
         listarTarefa();
         setModalApagar(false)
     }
+    function modal(){
+        setModal2(false);
+        setModal3(true);
+      }
 return(
         <SafeAreaView style={style.container}>
             <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>
@@ -151,6 +180,25 @@ return(
                                     <Text style={style.textApagar}>Apagar</Text>
 
                                 </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+                    {/* Modal renomear uma tarefa */}
+
+                    <Modal animationType="fade" transparent={true} visible={modal3}>
+                        <View style={style.modal}>
+                            <View style={style.modal2View}>
+                                <TouchableOpacity onPress={() => setModal3(false)} style={{ right:110}}>    
+                                    <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
+                                </TouchableOpacity>
+                                <Text style={style.textModal2}>Tarefa</Text>
+
+                                <TextInput  style={style.inputModalRenomear} defaultValue={"Teste"} onChangeText={(text) => setNomeTarefa(text)}/>
+
+                                <TouchableOpacity style={style.botaoRenomear}>
+                                    <Text style={style.textRenomear}>Renomear</Text>
+                                </TouchableOpacity>
+
                             </View>
                         </View>
                     </Modal>

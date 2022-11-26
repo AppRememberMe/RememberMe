@@ -229,6 +229,18 @@ export default StyleSheet.create({
         letterSpacing: 2,
         top: 15
     },
+    inputModalRenomear: {
+        width: 245,
+        height: 50,
+        padding: 6,
+        borderRadius: 10,
+        fontSize: 16,
+        bottom: 10,
+        color: '#4771b3',
+        textAlign: 'center', 
+        borderColor: "#508ebe",
+        borderWidth: 1,
+    },
     menu:{
         width: 45, 
         position:'absolute', 

@@ -42,7 +42,7 @@ router.post('/listarPrioridade', async(req, res) => {
     
     const{user, prioridade} = req.body
     try {
-        let response = await Tarefas.find({user: user}, {prioridade: prioridade})
+        let response = await Tarefas.find(({user: user}, {prioridade: prioridade}), {nomeTarefa: 1})
         res.send(response);
     } catch (error) {
         res.status(500).json({error: error})
@@ -71,12 +71,11 @@ router.post('/listarPrioridade', async(req, res) => {
 
 //     }
 // })
-// deletar todas as tarefas
 
+// deletar todas as tarefas
 router.delete('/deletarTudo', async (req,res) => {
     
     const{user} = req.body
-
     try {
         await Tarefas.deleteMany({user: user})
         res.status(200).json({message: 'Tarefas apagadas!'})
@@ -84,22 +83,19 @@ router.delete('/deletarTudo', async (req,res) => {
     } catch (error) {
         res.status(500).json({error: error})
     }
-
 })
-// deletar todas as tarefas por prioridade especifica
 
+// deletar todas as tarefas por prioridade especifica
 router.delete('/deletarTudoPrioridade', async (req,res) => {
     
     const{user, prioridade} = req.body
-
     try {
-        await Tarefas.deleteMany({user: user}, {prioridade: prioridade})
+        await Tarefas.deleteMany(({user: user}, {prioridade: prioridade}))
         res.status(200).json({message: 'Tarefas apagadas!'})
         
     } catch (error) {
         res.status(500).json({error: error})
     }
-
 })
  
 module.exports = router

@@ -61,5 +61,12 @@ export default StyleSheet.create({
         letterSpacing: 2, 
         top: 130 , 
         textDecorationLine: 'underline'
-    }
+    },
+    mensagem:(text='none') =>({
+        color: "red",
+        fontSize: 14,
+        marginTop: 10,
+        marginBottom: 15,
+        display: text
+      })
 });      
