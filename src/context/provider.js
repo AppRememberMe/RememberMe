@@ -4,13 +4,13 @@ export const Context = createContext();
 
 function Provider({children}){
     const [dados, setDados] = useState(null);
-    const[user, setUser] = useState(null);
+    const[userId, setUserId] = useState(null);
 
     return(
         <Context.Provider 
         value={{
             dados, setDados,
-            user, setUser
+            userId, setUserId
             }}>
             {children}
         </Context.Provider>

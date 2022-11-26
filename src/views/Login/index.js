@@ -6,7 +6,6 @@ import { StatusBar } from 'expo-status-bar';
 import Inputs from '../../components/inputs.js';
 import InputsSenha from '../../components/inputsSenha.js';
 import style from  './style';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Context} from '../../context/provider.js';
 
 export default function Login({navigation}) {
@@ -15,6 +14,7 @@ export default function Login({navigation}) {
   const[senha, setSenha] = useState(null);
   const[display, setDisplay]= useState('none');
   const {setDados} = useContext(Context);
+  const{userId, setUserId} = useContext(Context);
 
   //envio do formulario de cadastro
   async function login(){
@@ -30,6 +30,7 @@ export default function Login({navigation}) {
       })
     });
     let json = await response.json();
+    setUserId(json._id);
     
     if(json == 404){
       setDisplay("Usuário ou senha inválida!");
@@ -43,16 +44,12 @@ export default function Login({navigation}) {
           setDisplay('none')
       },3000);
     }else{
-      await AsyncStorage.setItem('userData', JSON.stringify(json));
       listarTarefa();
       navigation.navigate("MainPrincipal");
     }
-    
   }
   // listar todas as tarefas
   async function listarTarefa(){
-    let res = await AsyncStorage.getItem('userData');
-    let user = JSON.parse(res);
     let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
     method: 'POST',
     headers: {
@@ -60,14 +57,12 @@ export default function Login({navigation}) {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        user: user._id,
+        user: userId,
     })
     });
-
     let json = await response.json();
     setDados(json);
   }
-
   return (
    
       <KeyboardAvoidingView style={style.container}>

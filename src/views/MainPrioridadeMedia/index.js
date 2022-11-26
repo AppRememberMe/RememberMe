@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,8 +6,7 @@ import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import { SimpleLineIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import style from  './style';
-
-
+import {Context} from '../../context/provider';
 
 export default function MainPrioridadeMedia({navigation}){
     const [modal1, setModal1] = useState(false);
@@ -15,14 +14,10 @@ export default function MainPrioridadeMedia({navigation}){
     const [modal3, setModal3] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
     const [nomeTarefa, setNomeTarefa] = useState(null);
-    const[user, setUser]= useState(null);
+    const{userId} = useContext(Context);
 
     //criar tarefa
     async function tarefa(){
-        let res = await AsyncStorage.getItem('userData');
-        let res1 = JSON.parse(res);
-        setUser(res1._id);
-
         let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
@@ -30,7 +25,7 @@ export default function MainPrioridadeMedia({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: user,
+            user: userId,
             nomeTarefa: nomeTarefa,
             prioridade: "media",
         })
@@ -39,10 +34,6 @@ export default function MainPrioridadeMedia({navigation}){
     }
     //deletar todas as tarefas de prioridade baixa
     async function deletarTarefas(){
-        let res = await AsyncStorage.getItem('userData');
-        let res1 = JSON.parse(res);
-        setUser(res1._id);
-        
         let response = await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
         method: 'DELETE',
         headers: {
@@ -50,7 +41,7 @@ export default function MainPrioridadeMedia({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: user,
+            user: userId,
             prioridade: "media"
         })
         }); 

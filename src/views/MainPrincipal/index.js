@@ -1,4 +1,4 @@
-import React,{useState, useEffect, useContext} from "react";
+import React,{useState, useContext} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput,} from "react-native";
 import { RadioButton  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import BarraProgresso from "../../components/barraProgresso";
 import BotaoAdicionar from "../../components/botaoAdicionar";
 import { SimpleLineIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from  './style';
 import moment from 'moment';
 import 'moment/locale/pt-br';
@@ -27,21 +26,10 @@ export default function MainPrincipal({navigation}){
     const[nomeTarefa, setNomeTarefa]= useState(null);
     const[display, setDisplay]= useState('none');
     const {dados, setDados} = useContext(Context);
-    const[user, setUser]= useState(null);
+    const{userId} = useContext(Context);
 
-    useEffect(()=>{
-        async function getUser(){
-            let res = await AsyncStorage.getItem('userData');
-            let json = JSON.parse(res);
-            setUser(json._id);
-        }
-        getUser();
-    });
-    
     //criar tarefa
     async function tarefa(){
-        let res = await AsyncStorage.getItem('userData');
-        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
@@ -49,12 +37,11 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: user._id,
+            user: userId,
             nomeTarefa: nomeTarefa,
             prioridade: checked,
         })
         });
-
         let json = await response.json();
         if(json == 'error'){
             setDisplay('flex');
@@ -68,8 +55,6 @@ export default function MainPrincipal({navigation}){
 
   // listar todas as tarefas
     async function listarTarefa(){
-        let res = await AsyncStorage.getItem('userData');
-        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
         method: 'POST',
         headers: {
@@ -77,7 +62,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: user._id,
+            user: userId,
         })
         });
 
@@ -95,7 +80,7 @@ export default function MainPrincipal({navigation}){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user: user,
+        user: userId,
       })
     }); 
     listarTarefa();
