@@ -28,11 +28,12 @@ export default function MainPrioridadeBaixa({navigation}){
         body: JSON.stringify({
             user: userId,
             nomeTarefa: nomeTarefa,
-            prioridade: "alta",
+            prioridade: "baixa",
         })
         });
         //let json = await response.json();
-        listarTarefaAlta();
+        listarTarefaBaixa();
+        setNomeTarefa(null);
         setModal1(false);
     }
     // listar todas as tarefas
@@ -122,7 +123,7 @@ export default function MainPrioridadeBaixa({navigation}){
         setModal2(false);
         setModal3(true);
     }
-    
+
     return(
         <SafeAreaView style={style.container}>
             <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>

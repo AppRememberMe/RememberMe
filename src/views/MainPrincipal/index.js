@@ -30,7 +30,7 @@ export default function MainPrincipal({navigation}){
 
     //criar tarefa
     async function tarefa(){
-        let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
+        await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -44,6 +44,7 @@ export default function MainPrincipal({navigation}){
         });
         // let json = await response.json();
         listarTarefa();
+        setNomeTarefa(null);
         setModal1(false);
     }
 

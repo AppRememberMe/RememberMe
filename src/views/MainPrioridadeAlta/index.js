@@ -34,6 +34,7 @@ export default function MainPrioridadeAlta({navigation}){
         });
         //let json = await response.json();
         listarTarefaAlta();
+        setNomeTarefa(null);
         setModal1(false);
     }
     // listar todas as tarefas

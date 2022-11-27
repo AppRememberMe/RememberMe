@@ -28,11 +28,12 @@ export default function MainPrioridadeMedia({navigation}){
         body: JSON.stringify({
             user: userId,
             nomeTarefa: nomeTarefa,
-            prioridade: "alta",
+            prioridade: "media",
         })
         });
         //let json = await response.json();
-        listarTarefaAlta();
+        listarTarefaMedia();
+        setNomeTarefa(null);
         setModal1(false);
     }
     // listar todas as tarefas
