@@ -1,5 +1,5 @@
 import React,{useState, useContext} from "react";
-import { View, Text, TouchableOpacity, FlatList, Modal, TextInput,} from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Modal, TextInput, RefreshControl} from "react-native";
 import { RadioButton  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -24,10 +24,18 @@ export default function MainPrincipal({navigation}){
     const [modalApagar, setModalApagar] = useState(false);
     const [checked, setChecked] = useState('');
     const[nomeTarefa, setNomeTarefa]= useState(null);
-    const[display, setDisplay]= useState('none');
+    const [refreshing, setRefreshing] = useState(false);
     const {dados, setDados} = useContext(Context);
     const{userId} = useContext(Context);
-
+    
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        listarTarefa();
+        setTimeout(() => {
+            setRefreshing(false)
+        },1000);
+    }, []);
+      
     //criar tarefa
     async function tarefa(){
         await fetch('http://192.168.0.15:3000/tarefas/create', {
@@ -159,9 +167,15 @@ return(
                     <TouchableOpacity style={style.botaoAdicionar} onPress={() => setModal1(true)} >
                         <BotaoAdicionar></BotaoAdicionar>
                     </TouchableOpacity>
-
+                    
                     <View style={style.flatList} >
-                        <FlatList
+                        <FlatList 
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                         data={dados}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
@@ -170,6 +184,8 @@ return(
                         )}
                     />
                     </View>
+                    
+                    
    
                 </View>
 
