@@ -37,7 +37,6 @@ export default function Login({navigation}) {
       setTimeout(() => {
           setDisplay('none')
       },3000);
-      //await AsyncStorage.clear();
     }else if(json == 422){
       setDisplay("Preencha todos os campos!");
       setTimeout(() => {

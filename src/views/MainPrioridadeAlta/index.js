@@ -15,12 +15,12 @@ export default function MainPrioridadeAlta({navigation}){
     const [modal3, setModal3] = useState(false);
     const [modalApagar, setModalApagar] = useState(false);
     const [nomeTarefa, setNomeTarefa] = useState(null);
-    const[dados, setDados]= useState(null)
+    const {dados, setDados} = useContext(Context);
     const{userId} = useContext(Context);
 
     //criar tarefa
     async function tarefa(){
-        let response = await fetch('http://192.168.0.15:3000/tarefas/create', {
+        await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -32,18 +32,62 @@ export default function MainPrioridadeAlta({navigation}){
             prioridade: "alta",
         })
         });
-        let json = await response.json();
-        if(json == 'error'){
-            setDisplay('flex');
-            setTimeout(() => {
-                setDisplay('none')
-            },3000);
-        }
-        listarTarefa();
+        //let json = await response.json();
+        listarTarefaAlta();
         setModal1(false);
     }
-    // listar  as tarefas por prioridade
+    // listar todas as tarefas
     async function listarTarefa(){
+        let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: userId,
+        })
+        });
+        let json = await response.json();
+        setDados(json);
+        navigation.navigate('MainPrincipal');
+    }
+    // listar  as tarefas por prioridade - baixa
+    async function listarTarefaBaixa(){
+        let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: userId,
+            prioridade: "baixa"
+        })
+        });
+        let json = await response.json();
+        setDados(json);
+        navigation.navigate('MainPrioridadeBaixa');
+    }
+    // listar  as tarefas por prioridade - media
+    async function listarTarefaMedia(){
+        let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: userId,
+            prioridade: "media"
+        })
+        });
+        let json = await response.json();
+        setDados(json);
+        navigation.navigate('MainPrioridadeMedia');
+    }
+    // listar  as tarefas por prioridade - alta
+    async function listarTarefaAlta(){
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
         method: 'POST',
         headers: {
@@ -57,10 +101,11 @@ export default function MainPrioridadeAlta({navigation}){
         });
         let json = await response.json();
         setDados(json);
+        navigation.navigate('MainPrioridadeAlta');
     }
     //deletar todas as tarefas de prioridade alta
     async function deletarTarefas(){
-        let response = await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
+        await fetch('http://192.168.0.15:3000/tarefas/deletarTudoPrioridade', {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -71,14 +116,15 @@ export default function MainPrioridadeAlta({navigation}){
             prioridade: "alta"
         })
         }); 
-        listarTarefa();
+        listarTarefaAlta();
         setModalApagar(false)
     }
     function modal(){
         setModal2(false);
         setModal3(true);
-      }
-return(
+    }
+
+    return(
         <SafeAreaView style={style.container}>
             <LinearGradient colors={['#4458be', '#65ebbe']} style={style.background}/>
 
@@ -97,92 +143,8 @@ return(
                             </TouchableOpacity>
                     </View>
 
-                    {/* Modal Apagar */ }
-                    <Modal animationType="fade" transparent={true} visible={modalApagar}>
-                        <View style={style.modal}>
-                            <View style={style.modalApagar}>
-                                <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:25}}>    
-                                    <Ionicons name="md-close-outline" size={30} color={'#fff'} />    
-                                </TouchableOpacity>
-                                <Text style={style.texto}>Deseja apagar todas as tarefas?</Text>
-                            <View style={style.botoes}>
-                                <TouchableOpacity onPress={() => deletarTarefas()} style={style.botaoSim}> 
-                                    <Text style={style.textBotao}>Sim</Text>   
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoNao}> 
-                                    <Text style={style.textBotao}>Não</Text>   
-                                </TouchableOpacity>
-                            </View>
-                            </View>
-                        </View>
-                    </Modal>
-
                     <BarraProgresso color={'#fc9797'}></BarraProgresso>
                     
-                    {/* Modal Adiconar nova tarefa */}
-                    <Modal animationType="fade" transparent={true} visible={modal1}>
-                        <View style={style.modal}>
-                            <View style={style.modal1View}>
-
-                                <TouchableOpacity onPress={() => setModal1(false)} style={{ right:110}}>    
-                                    <Ionicons name="md-close-outline" size={30} color={'#4458be'} />
-                                </TouchableOpacity>
-                        
-                                <Text style={style.textModal1}>Nova tarefa</Text>
-
-                                <TextInput  style={style.inputModal} onChangeText={(text) => setNomeTarefa(text)} />
-                                
-                                <TouchableOpacity onPress={() => tarefa()} style={style.botaoAdicionarModal}>
-                                    <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
-                                </TouchableOpacity>
-                                    
-                                
-                            </View>
-                        </View>
-                    </Modal>
-                    
-                    {/* Modal quando pressiona uma tarefa */}
-
-                    <Modal animationType="fade" transparent={true} visible={modal2}>
-                        <View style={style.modal}>
-                            <View style={style.modal2View}>
-                                <TouchableOpacity onPress={() => setModal2(false)} style={{ right:110}}>    
-                                    <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
-                                </TouchableOpacity>
-                                <Text style={style.textModal2}>Tarefa</Text>
-
-                                <TouchableOpacity style={style.botaoRenomear} onPress={() => modal()}>
-                                    <Text style={style.textRenomear}>Renomear</Text>
-                                </TouchableOpacity>
-
-                                 <TouchableOpacity style={style.botaoApagar}>
-                                    <Text style={style.textApagar}>Apagar</Text>
-
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </Modal>
-                    {/* Modal renomear uma tarefa */}
-
-                    <Modal animationType="fade" transparent={true} visible={modal3}>
-                        <View style={style.modal}>
-                            <View style={style.modal2View}>
-                                <TouchableOpacity onPress={() => setModal3(false)} style={{ right:110}}>    
-                                    <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
-                                </TouchableOpacity>
-                                <Text style={style.textModal2}>Tarefa</Text>
-
-                                <TextInput  style={style.inputModalRenomear} defaultValue={"Teste"} onChangeText={(text) => setNomeTarefa(text)}/>
-
-                                <TouchableOpacity style={style.botaoRenomear}>
-                                    <Text style={style.textRenomear}>Renomear</Text>
-                                </TouchableOpacity>
-
-                            </View>
-                        </View>
-                    </Modal>
-
                     <TouchableOpacity style={style.botaoAdicionar} onPress={() => setModal1(true)} >
                         <BotaoAdicionar></BotaoAdicionar>
                     </TouchableOpacity>
@@ -192,7 +154,6 @@ return(
                         data={dados}
                         renderItem={({item}) => (
                             <TouchableOpacity style={style.viewList} onLongPress={() => setModal2(true)}>
-                                 
                                 <Text style={style.textList} icon={'start'}>{item.nomeTarefa} </Text>
                             </TouchableOpacity> 
                         )}
@@ -201,24 +162,105 @@ return(
                 </View>
 
                 <View style={style.menu}>
-                    <TouchableOpacity onPress={()=> navigation.navigate('MainPrincipal')}>
+                    <TouchableOpacity onPress={() => listarTarefa()}>
                         <View style={style.menuBranco}></View>
-                    </TouchableOpacity>  
-                                      
-                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrioridadeBaixa')}>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={() => listarTarefaBaixa()}>
                         <View style={style.menuVerde}></View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={() => navigation.navigate('MainPrioridadeMedia')}>
+                    <TouchableOpacity onPress={() => listarTarefaMedia()}>
                         <View style={style.menuLaranja} ></View>
                     </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={() => navigation.navigate('MainPrioridadeAlta')}>
+                    <TouchableOpacity onPress={() => listarTarefaAlta()}>
                         <View style={style.menuVermelho} ></View>
                     </TouchableOpacity>
                 </View>
+
+                {/* Modais */}
+
+                {/* Modal Apagar */ }
+                <Modal animationType="fade" transparent={true} visible={modalApagar}>
+                    <View style={style.modal}>
+                        <View style={style.modalApagar}>
+                            <TouchableOpacity onPress={() => setModalApagar(false)} style={{ width:25}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'#fff'} />    
+                            </TouchableOpacity>
+                            <Text style={style.texto}>Deseja apagar todas as tarefas?</Text>
+                        <View style={style.botoes}>
+                            <TouchableOpacity onPress={() => deletarTarefas()} style={style.botaoSim}> 
+                                <Text style={style.textBotao}>Sim</Text>   
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => setModalApagar(false)} style={style.botaoNao}> 
+                                <Text style={style.textBotao}>Não</Text>   
+                            </TouchableOpacity>
+                        </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                {/* Modal Adiconar nova tarefa */}
+                <Modal animationType="fade" transparent={true} visible={modal1}>
+                    <View style={style.modal}>
+                        <View style={style.modal1View}>
+
+                            <TouchableOpacity onPress={() => setModal1(false)} style={{ right:110}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'#4458be'} />
+                            </TouchableOpacity>
+                    
+                            <Text style={style.textModal1}>Nova tarefa</Text>
+
+                            <TextInput  style={style.inputModal} onChangeText={(text) => setNomeTarefa(text)} />
+                            
+                            <TouchableOpacity onPress={() => tarefa()} style={style.botaoAdicionarModal}>
+                                <Text style={style.textBotaoAdicionarModal}>Adicionar</Text>
+                            </TouchableOpacity>
+                                
+                            
+                        </View>
+                    </View>
+                </Modal>
+                    
+                {/* Modal quando pressiona uma tarefa */}
+                <Modal animationType="fade" transparent={true} visible={modal2}>
+                    <View style={style.modal}>
+                        <View style={style.modal2View}>
+                            <TouchableOpacity onPress={() => setModal2(false)} style={{ right:110}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
+                            </TouchableOpacity>
+                            <Text style={style.textModal2}>Tarefa</Text>
+
+                            <TouchableOpacity style={style.botaoRenomear} onPress={() => modal()}>
+                                <Text style={style.textRenomear}>Renomear</Text>
+                            </TouchableOpacity>
+
+                                <TouchableOpacity style={style.botaoApagar}>
+                                <Text style={style.textApagar}>Apagar</Text>
+
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                {/* Modal renomear uma tarefa */}
+                <Modal animationType="fade" transparent={true} visible={modal3}>
+                    <View style={style.modal}>
+                        <View style={style.modal2View}>
+                            <TouchableOpacity onPress={() => setModal3(false)} style={{ right:110}}>    
+                                <Ionicons name="md-close-outline" size={30} color={'#4771b3'} />
+                            </TouchableOpacity>
+                            <Text style={style.textModal2}>Tarefa</Text>
+
+                            <TextInput  style={style.inputModalRenomear} defaultValue={"Teste"} onChangeText={(text) => setNomeTarefa(text)}/>
+
+                            <TouchableOpacity style={style.botaoRenomear}>
+                                <Text style={style.textRenomear}>Renomear</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </Modal>
             </View>
-            
         </SafeAreaView>
     );
 }

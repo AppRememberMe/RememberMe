@@ -278,5 +278,12 @@ export default StyleSheet.create({
         backgroundColor: '#ffafaf',
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
-    }
-});      
+    },
+    mensagem:(text='none') =>({
+      color: "red",
+      fontSize: 14,
+      marginTop: 10,
+      marginBottom: 15,
+      display: text
+    })
+});

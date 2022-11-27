@@ -9,11 +9,7 @@ router.post('/create', async(req, res) =>{
         res.status(422).send(JSON.stringify('422'));
         return
     }
-    const usuario = {
-        user,
-        email,
-        senha
-    }
+    const usuario = {user, email, senha}
     try {
         
         let response = await Usuarios.create(usuario)

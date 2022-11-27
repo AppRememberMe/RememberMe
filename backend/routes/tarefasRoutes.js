@@ -5,15 +5,11 @@ const Tarefas = require('../models/tarefas')
 router.post('/create', async(req, res) =>{
     const{user, nomeTarefa, prioridade} = req.body
 
-    if ((!user) || (!nomeTarefa) || (!prioridade)){
-        res.status(422).json({error: 'Preenchimento obrigatório'})
+    if ((!nomeTarefa) || (!prioridade)){
+        res.status(422).send(JSON.stringify('422'));
         return
     }
-    const tarefa = {
-        user,
-        nomeTarefa,
-        prioridade
-    }
+    const tarefa = {user, nomeTarefa, prioridade}
     try {
         let response = await Tarefas.create(tarefa)
         res.status(200).send(JSON.stringify('202'));
