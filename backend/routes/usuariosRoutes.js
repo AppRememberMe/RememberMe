@@ -11,7 +11,6 @@ router.post('/create', async(req, res) =>{
     }
     const usuario = {user, email, senha}
     try {
-        
         let response = await Usuarios.create(usuario)
         res.send(response);
         
@@ -57,9 +56,9 @@ router.post('/create', async(req, res) =>{
 // })
 
 //encontrar usuario para autenticação do login
-router.post('/login', async (req, res) => {
+router.get('/login', async (req, res) => {
     const{user, senha} = req.body
-    
+
     if ((!user) || (!senha)){
         res.status(422).send(JSON.stringify('422'));
         return

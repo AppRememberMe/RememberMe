@@ -7,6 +7,7 @@ import Inputs from '../../components/inputs.js';
 import InputsSenha from '../../components/inputsSenha.js';
 import style from  './style';
 import {Context} from '../../context/provider.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}) {
 
@@ -18,6 +19,8 @@ export default function Login({navigation}) {
 
   //envio do formulario de cadastro
   async function login(){
+    setUserId(null)
+    console.log(userId)
     let response = await fetch('http://192.168.0.15:3000/usuarios/login', {
       method: 'POST',
       headers: {
@@ -30,6 +33,7 @@ export default function Login({navigation}) {
       })
     });
     let json = await response.json();
+    console.log(json._id)
     setUserId(json._id);
     
     if(json == 404){

@@ -15,6 +15,7 @@ export default function Cadastro({navigation}) {
   const [senha, setSenha] = useState(null);
   const[confirmarSenha, setConfirmarSenha] = useState(null);
   const[display, setDisplay]= useState('none');
+  //const{userId, setUserId} = useContext(Context);
 
   
   //envio do formulario de cadastro
