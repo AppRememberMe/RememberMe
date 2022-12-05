@@ -15,12 +15,12 @@ export default function Login({navigation}) {
   const[senha, setSenha] = useState(null);
   const[display, setDisplay]= useState('none');
   const {setDados} = useContext(Context);
-  const{userId, setUserId} = useContext(Context);
+  //const{userId, setUserId} = useContext(Context);
 
   //envio do formulario de cadastro
   async function login(){
-    setUserId(null)
-    console.log(userId)
+    console.log(user)
+    console.log(senha)
     let response = await fetch('http://192.168.0.15:3000/usuarios/login', {
       method: 'POST',
       headers: {
@@ -33,8 +33,8 @@ export default function Login({navigation}) {
       })
     });
     let json = await response.json();
-    console.log(json._id)
-    setUserId(json._id);
+    console.log(json)
+    //setUserId(json._id);
     
     if(json == 404){
       setDisplay("Usuário ou senha inválida!");
@@ -47,12 +47,17 @@ export default function Login({navigation}) {
           setDisplay('none')
       },3000);
     }else{
+      await AsyncStorage.setItem('userData', JSON.stringify(json));
       listarTarefa();
       navigation.navigate("MainPrincipal");
     }
+    //setUserId(null)
   }
   // listar todas as tarefas
   async function listarTarefa(){
+    let res = await AsyncStorage.getItem('userData');
+    let user = JSON.parse(res);
+    
     let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
     method: 'POST',
     headers: {
@@ -60,7 +65,7 @@ export default function Login({navigation}) {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        user: userId,
+        user: user._id,
     })
     });
     let json = await response.json();

@@ -56,7 +56,7 @@ router.post('/create', async(req, res) =>{
 // })
 
 //encontrar usuario para autenticação do login
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     const{user, senha} = req.body
 
     if ((!user) || (!senha)){

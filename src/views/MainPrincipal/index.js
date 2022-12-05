@@ -1,4 +1,4 @@
-import React,{useState, useContext} from "react";
+import React,{useState, useContext, useEffect} from "react";
 import { View, Text, TouchableOpacity, FlatList, Modal, TextInput, RefreshControl} from "react-native";
 import { RadioButton  } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +10,10 @@ import style from  './style';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import {Context} from '../../context/provider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 
 moment().format();
 moment.locale('pt-br');
@@ -26,8 +30,9 @@ export default function MainPrincipal({navigation}){
     const[nomeTarefa, setNomeTarefa]= useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const {dados, setDados} = useContext(Context);
-    const{userId} = useContext(Context);
-    
+    //const{userId} = useContext(Context);
+    const[user, setUser]= useState(null);
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         listarTarefa();
@@ -35,9 +40,21 @@ export default function MainPrincipal({navigation}){
             setRefreshing(false)
         },1000);
     }, []);
+
+    useEffect(()=>{
+        async function getUser(){
+            let res = await AsyncStorage.getItem('userData');
+            let json = JSON.parse(res);
+            setUser(json._id);
+        }
+        getUser();
+    });
       
     //criar tarefa
     async function tarefa(){
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
+
         await fetch('http://192.168.0.15:3000/tarefas/create', {
         method: 'POST',
         headers: {
@@ -45,7 +62,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: userId,
+            user: user._id,
             nomeTarefa: nomeTarefa,
             prioridade: checked,
         })
@@ -58,6 +75,8 @@ export default function MainPrincipal({navigation}){
 
     // listar todas as tarefas
     async function listarTarefa(){
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarTodas', {
         method: 'POST',
         headers: {
@@ -65,7 +84,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: userId,
+            user: user,
         })
         });
         let json = await response.json();
@@ -73,6 +92,8 @@ export default function MainPrincipal({navigation}){
     }
     // listar  as tarefas por prioridade - baixa
     async function listarTarefaBaixa(){
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
         method: 'POST',
         headers: {
@@ -80,7 +101,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: userId,
+            user: user._id,
             prioridade: "baixa"
         })
         });
@@ -90,6 +111,8 @@ export default function MainPrincipal({navigation}){
     }
     // listar  as tarefas por prioridade - media
     async function listarTarefaMedia(){
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
         method: 'POST',
         headers: {
@@ -97,7 +120,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: userId,
+            user: user._id,
             prioridade: "media"
         })
         });
@@ -107,6 +130,8 @@ export default function MainPrincipal({navigation}){
     }
     // listar  as tarefas por prioridade - alta
     async function listarTarefaAlta(){
+        let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
         let response = await fetch('http://192.168.0.15:3000/tarefas/listarPrioridade', {
         method: 'POST',
         headers: {
@@ -114,7 +139,7 @@ export default function MainPrincipal({navigation}){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user: userId,
+            user: user._id,
             prioridade: "alta"
         })
         });
@@ -124,6 +149,8 @@ export default function MainPrincipal({navigation}){
     }
   //deletar todas as tarefas
   async function deletarTarefas(){
+    let res = await AsyncStorage.getItem('userData');
+        let user = JSON.parse(res);
     await fetch('http://192.168.0.15:3000/tarefas/deletarTudo', {
     method: 'DELETE',
       headers: {
@@ -131,7 +158,7 @@ export default function MainPrincipal({navigation}){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user: userId,
+        user: user._id,
       })
     }); 
     listarTarefa();
