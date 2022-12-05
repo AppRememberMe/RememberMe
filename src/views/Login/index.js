@@ -19,8 +19,7 @@ export default function Login({navigation}) {
 
   //envio do formulario de cadastro
   async function login(){
-    console.log(user)
-    console.log(senha)
+
     let response = await fetch('http://192.168.0.15:3000/usuarios/login', {
       method: 'POST',
       headers: {
@@ -33,7 +32,7 @@ export default function Login({navigation}) {
       })
     });
     let json = await response.json();
-    console.log(json)
+
     //setUserId(json._id);
     
     if(json == 404){
